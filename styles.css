@@ -58,11 +58,19 @@ body {
 }
 .nav.scrolled {
   background: rgba(10, 10, 18, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--border);
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
+}
+/* Blur lives on a pseudo-element: backdrop-filter on .nav itself makes the header
+   the containing block for the fixed mobile menu, which breaks the full-screen overlay. */
+.nav.scrolled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: -1;
 }
 .nav-logo {
   font-family: var(--font-head);
